@@ -55,7 +55,7 @@ public class Main {
         for (Element keyword : keywords)
         {
 
-            System.out.println("link : " + keyword.attr("keywords"));
+            System.out.println("meta : " + keyword.attr("content"));
             System.out.println("text : " + keyword.text());
 
         }
