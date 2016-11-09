@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-
+   //     File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
         File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
         Document doc = Jsoup.parse(input, "UTF-8");
 
@@ -29,18 +29,54 @@ public class Main {
 
 
             // get page title
-            String title = doc.title();
-            System.out.println("title : " + title);
+//            String title = doc.title();
+//            System.out.println("title : " + title);
 
             // get all links
-            Elements links = doc.select("a[href]");
-            for (Element link : links) {
+            // Elements links = doc.select("div[class=block]"); // this works well but only gets first group
 
-                // get the value from href attribute
-                System.out.println("\nlink : " + link.attr("href"));
-                System.out.println("text : " + link.text());
 
-            }
+            //Elements links = doc.select("h[4]").select("div[class=block]");
+
+
+        /*
+        Elements h4tags = doc.select("h4").select("div[class=block]");
+        Elements more = doc.select("div[class=block]");
+
+        for (Element test : h4tags) {
+            System.out.println(test.text());
+        }
+
+        for (Element test2 : more) {
+            System.out.println(test2.text());
+        }
+        */
+
+
+ //       Elements h4tags = doc.select("h1,h2,h3,h4");
+       // doc.select("div[class=block]");
+
+/*
+        Elements h4tags = doc.select("h4, div[class=block]");  //// woohoo it works - two items printed together!!!!
+        for (Element test : h4tags) {
+            System.out.println(test.text());
+        }
+*/
+
+            // div[class=block]
+
+        Elements h4tags = doc.select("li[class=blocklist] > div[class=block]");
+        for (Element test : h4tags) {
+            System.out.println(test.firstElementSibling().html());
+            System.out.println(test.text());
+            System.out.println();
+        }
+
+
+
+
+        //System.out.println(h4tags.text());
+        //System.out.println(more.text());
 
 
 
@@ -51,6 +87,8 @@ public class Main {
         //String keywords = doc.select("meta[name=keywords]").first().attr("content");
         //System.out.println("Meta keyword : " + keywords);
 
+        /*
+
         Elements keywords = doc.select("meta[name=keywords]");
         for (Element keyword : keywords)
         {
@@ -60,7 +98,7 @@ public class Main {
 
         }
 
-
+        */
 
     }
 
