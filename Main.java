@@ -14,7 +14,8 @@ public class Main {
 
 
    //     File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
-        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
+   //     File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
+        File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
         Document doc = Jsoup.parse(input, "UTF-8");
 
 
@@ -65,13 +66,33 @@ public class Main {
 
             // div[class=block]
 
+
+
+        //*************************
+        /*
         Elements h4tags = doc.select("li[class=blocklist] > div[class=block]");
         for (Element test : h4tags) {
             System.out.println(test.firstElementSibling().html());
             System.out.println(test.text());
             System.out.println();
         }
+        */
+        //*************************
 
+
+
+        // ***** package summary page ******
+
+        Elements results = doc.select("table[class=typeSummary] td[class]");   //  td[class]
+        for (Element item : results) {
+            System.out.println();
+            System.out.println(item.text());
+        }
+
+
+        for (int i = 0; i < results.size(); i++) {
+            System.out.println("i = " + i + ": " + results.get(i).text());
+        }
 
 
 
