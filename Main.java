@@ -89,18 +89,17 @@ public class Main {
             System.out.println(item.text());
         }
 
-
         for (int i = 0; i < results.size(); i++) {
             System.out.println("i = " + i + ": " + results.get(i).text());
         }
+
+        // ***** package summary page ******
+
 
 
 
         //System.out.println(h4tags.text());
         //System.out.println(more.text());
-
-
-
 
 //        String description = doc.select("meta[name=description]").get(0).attr("content");
 //        System.out.println("Meta description : " + description);
