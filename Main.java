@@ -22,18 +22,15 @@ public class Main {
         */
 
 
-
-
-
-            // get page title
+        // get page title
 //            String title = doc.title();
 //            System.out.println("title : " + title);
 
-            // get all links
-            // Elements links = doc.select("div[class=block]"); // this works well but only gets first group
+        // get all links
+        // Elements links = doc.select("div[class=block]"); // this works well but only gets first group
 
 
-            //Elements links = doc.select("h[4]").select("div[class=block]");
+        //Elements links = doc.select("h[4]").select("div[class=block]");
 
 
         /*
@@ -50,8 +47,8 @@ public class Main {
         */
 
 
- //       Elements h4tags = doc.select("h1,h2,h3,h4");
-       // doc.select("div[class=block]");
+        //       Elements h4tags = doc.select("h1,h2,h3,h4");
+        // doc.select("div[class=block]");
 
 /*
         Elements h4tags = doc.select("h4, div[class=block]");  //// woohoo it works - two items printed together!!!!
@@ -60,8 +57,7 @@ public class Main {
         }
 */
 
-            // div[class=block]
-
+        // div[class=block]
 
 
         //*************************
@@ -97,8 +93,6 @@ public class Main {
         */
 
 
-
-
         //*************************
 
         // Elements h4tags = doc.select("li[class=blocklist] > div[class=block]");
@@ -115,13 +109,13 @@ public class Main {
         //Elements selected = doc.getElementsByTag("td");
 
 
-       // Elements colfirst = doc.getElementsByAttributeValue("class", "colfirst");
-       // Elements selected = doc.getElementsByTag("td");
+        // Elements colfirst = doc.getElementsByAttributeValue("class", "colfirst");
+        // Elements selected = doc.getElementsByTag("td");
 
-       //  Elements content = doc.select("tr > td"); //sort of works at a table level
+        //  Elements content = doc.select("tr > td"); //sort of works at a table level
 
- //       Elements content = doc.getElementsByClass("colfirst");
-      //  Elements content2 = doc.select("table[summary=method summary table, listing methods, and an explanation]");  //:has(code) //, td[class=collast]
+        //       Elements content = doc.getElementsByClass("colfirst");
+        //  Elements content2 = doc.select("table[summary=method summary table, listing methods, and an explanation]");  //:has(code) //, td[class=collast]
 
         /*
         for (Element table : doc.select("table")) {
@@ -132,23 +126,62 @@ public class Main {
         }
         */
 
-       // Elements table = doc.getElementsByAttributeValue("summary", "Method Summary table, listing methods, and an explanation");
+        // Elements table = doc.getElementsByAttributeValue("summary", "Method Summary table, listing methods, and an explanation");
 
 
-
-
-        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
+        /*
+        //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
-        //    File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
+        File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
         Document doc = Jsoup.parse(input, "UTF-8");
 
-        Elements h4tags = doc.select("li[class=blocklist] > div[class=block]");
-        for (Element test : h4tags) {
-            System.out.println(test.firstElementSibling().html());
+
+        Elements items = doc.select("div[class=header]");
+        for (Element test : items) {
+            //System.out.println(test.firstElementSibling().html());
             System.out.println(test.text());
             System.out.println();
         }
 
+        Elements items = doc.select("div[class=header]");
+        Iterator<Element> iterator = items.select("h1").iterator();
+        int count = 1;
+        String title = null;
+            title = iterator.next().text();
+            System.out.println(count + " text : " + title);
+        title = title.replace("Package", "");
+            System.out.println("title = " + title);
+
+        items = doc.select("div[class=docSummary]");
+        String description = null;
+        iterator = items.select("div[class=block]").iterator();
+        description = iterator.next().text();
+        System.out.println(count + " text : " + description);
+      //  title = title.replace("Package", "");
+        System.out.println("description = " + description);
+        */
+
+
+//*******************  keeper - gets details from class type file ****************************
+        //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
+        //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
+        //    File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
+        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arrays.html");
+        Document doc = Jsoup.parse(input, "UTF-8");
+
+
+        Elements details = doc.select("div[class=details]");
+        //Iterator<Element> iterator = table.select("td[class=colLast]").iterator();
+        Iterator<Element> iter = details.select("pre, div, dl").iterator();
+        int count = 1;
+        iter.next().text();
+        while(iter.hasNext()) {
+            System.out.println(count + " text : " + iter.next().text());
+            System.out.println(count + " text : " + iter.next().text());
+            System.out.println(count + " text : " + iter.next().text());
+            count++;
+        }
+//*******************  keeper - gets details from class type file ****************************
 
 
 
@@ -157,7 +190,40 @@ public class Main {
 
 
 
+/*
+        Elements keywords = doc.select("meta[name=keywords]");
+        for (Element keyword : keywords)
+        {
 
+            System.out.println("meta : " + keyword.attr("content"));
+            System.out.println("text : " + keyword.text());
+
+        }
+
+*/
+
+
+
+/*
+//*************** keeper - gets the modifier and type and method name ***********************
+        //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
+        //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
+        //    File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
+        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arrays.html");
+        Document doc = Jsoup.parse(input, "UTF-8");
+
+
+        Element table = doc.select("table[summary=Method Summary table, listing methods, and an explanation]").first();
+        //Iterator<Element> iterator = table.select("td[class=colLast]").iterator();
+        Iterator<Element> iterator = table.select("code").iterator();
+        int count = 1;
+        while(iterator.hasNext()) {
+            System.out.println(count + " text : " + iterator.next().text());
+            System.out.println(count + " text : " + iterator.next().text());
+            count++;
+        }
+//*************** keeper - gets the modifier and type and method name ***********************
+*/
 
 
         /*
@@ -189,10 +255,7 @@ public class Main {
         */
 
 
-
-
         }
-
 
 
         //*************************
@@ -217,7 +280,6 @@ public class Main {
         */
 
 
-
         //System.out.println(h4tags.text());
         //System.out.println(more.text());
 
@@ -240,6 +302,6 @@ public class Main {
 
         */
 
-    }
+}
 
 
