@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class Main {
@@ -162,6 +163,9 @@ public class Main {
         */
 
 
+
+
+/*
 //*******************  keeper - gets details from class type file ****************************
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
@@ -175,14 +179,33 @@ public class Main {
         Iterator<Element> iter = details.select("pre, div, dl").iterator();
         int count = 1;
         iter.next().text();
+        String string1 = null;
+        String string2 = null;
+        String string3 = null;
         while(iter.hasNext()) {
-            System.out.println(count + " text : " + iter.next().text());
-            System.out.println(count + " text : " + iter.next().text());
-            System.out.println(count + " text : " + iter.next().text());
+            string1 = iter.next().text();
+            string2 = iter.next().text();
+            string3 = iter.next().text();
+
+            System.out.println(string1);
+            System.out.println(string2);
+            System.out.println(string3);
+
+            //System.out.println(count + " text : " + iter.next().text());
+            //System.out.println(count + " text : " + iter.next().text());
+            //System.out.println(count + " text : " + iter.next().text());
             count++;
         }
-//*******************  keeper - gets details from class type file ****************************
 
+        System.out.println("string2 as array = " );
+        System.out.println("length = " + string2.length());
+        // String string2a = string2.split(". ");
+        System.out.println(string2.getClass().getName());
+
+        System.out.println("iter length = " + iter);
+
+//*******************  keeper - gets details from class type file ****************************
+*/
 
 
 
@@ -203,27 +226,58 @@ public class Main {
 */
 
 
-
-/*
 //*************** keeper - gets the modifier and type and method name ***********************
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
         //    File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
-        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arrays.html");
+//        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arrays.html");
+        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arraylist.html");
         Document doc = Jsoup.parse(input, "UTF-8");
 
 
         Element table = doc.select("table[summary=Method Summary table, listing methods, and an explanation]").first();
-        //Iterator<Element> iterator = table.select("td[class=colLast]").iterator();
-        Iterator<Element> iterator = table.select("code").iterator();
+//        Iterator<Element> iterator = table.select("code, div[class=block]").iterator(); //, div[class=block]
+//        Iterator<Element> iterator = table.select("td[class=colFirst], td[class=colLast], div[class=block]").iterator(); //, div[class=block]
+        Iterator<Element> iterator = table.select("td[class=colFirst], td[class=colLast]").iterator(); //, div[class=block]
         int count = 1;
-        while(iterator.hasNext()) {
+        String name = null;
+        String trimmed = null;
+        while (iterator.hasNext()) {
             System.out.println(count + " text : " + iterator.next().text());
-            System.out.println(count + " text : " + iterator.next().text());
+            if (iterator.hasNext()) {
+                name = iterator.next().text();
+                trimmed = name.split("\\)", 2)[0];   // concept from:http://stackoverflow.com/questions/18220022/how-to-trim-a-string-after-a-specific-character-in-java
+                trimmed = trimmed + ")";
+                System.out.println(count + " text : " + trimmed);
+                System.out.println(count + " text : " + name);
+            }
+//            if (iterator.hasNext()) {
+//                System.out.println(count + " text : " + iterator.next().text());
+//            }
+            System.out.println();
             count++;
         }
+
+
+        /*
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        Elements details = doc.select("div[class=details]");
+        Iterator<Element> iter = details.select("pre, div[class=block]").iterator();   // , div, dl
+        count = 1;
+        while (iter.hasNext()) {
+            System.out.println(count + " test : " + iter.next().text());
+            count++;
+        }
+        */
+
+
+
+
 //*************** keeper - gets the modifier and type and method name ***********************
-*/
+
 
 
         /*
@@ -253,9 +307,6 @@ public class Main {
             System.out.println("i = " + i + ": " + table.get(i).text());
         }
         */
-
-
-        }
 
 
         //*************************
@@ -302,6 +353,7 @@ public class Main {
 
         */
 
+    }
 }
 
 
