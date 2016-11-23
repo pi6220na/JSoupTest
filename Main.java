@@ -163,33 +163,101 @@ public class Main {
         */
 
 
-
-
 /*
+// from JSoup links program
+        String url = "https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html";
+
+//        Validate.isTrue(args.length == 1, "usage: supply url to fetch");
+//        String url = args[0];
+        print("Fetching %s...", url);
+
+
+        //doc.select("div[class=details]");
+        Document doc = Jsoup.connect(url).get();
+        Elements links = doc.select("div[class=details] a");
+        Elements media = doc.select("div[class=details] [src]");
+        Elements imports = doc.select("div[class=details] link[href]");
+
+        print("\nMedia: (%d)", media.size());
+        for (Element src : media) {
+            if (src.tagName().equals("img"))
+                print(" * %s: <%s> %sx%s (%s)",
+                        src.tagName(), src.attr("abs:src"), src.attr("width"), src.attr("height"),
+                        trim(src.attr("alt"), 20));
+            else
+                print(" * %s: <%s>", src.tagName(), src.attr("abs:src"));
+        }
+
+        print("\nImports: (%d)", imports.size());
+        for (Element link : imports) {
+            print(" * %s <%s> (%s)", link.tagName(),link.attr("abs:href"), link.attr("rel"));
+        }
+
+        print("\nLinks: (%d)", links.size());
+        for (Element link : links) {
+            print(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
+        }
+    }
+
+    private static void print(String msg, Object... args) {
+        System.out.println(String.format(msg, args));
+    }
+
+    private static String trim(String s, int width) {
+        if (s.length() > width)
+            return s.substring(0, width-1) + ".";
+        else
+            return s;
+    }
+
+*/
+
+
+
+
+
+
+
+
+// foobar.... can't get details from calendar.html file
 //*******************  keeper - gets details from class type file ****************************
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
         //    File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
-        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arrays.html");
+ //       File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arrays.html");
+ //       File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/base64.html");
+        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/calendar.html");
         Document doc = Jsoup.parse(input, "UTF-8");
 
 
-        Elements details = doc.select("div[class=details]");
+ //       Elements details = doc.select("div.details").select("pre");
+ //       Elements details = doc.select("div.details");
+
+              // <a name="method.detail">
+
+        Elements details = doc.select("ul.blocklist").select("li.blocklist").select("h3:containsOwn(Method Detail)");
         //Iterator<Element> iterator = table.select("td[class=colLast]").iterator();
         Iterator<Element> iter = details.select("pre, div, dl").iterator();
+        //Iterator<Element> iter = details.select("pre:contains(public), div, dl").iterator();
+ //       Iterator<Element> iter = details.iterator();
         int count = 1;
         iter.next().text();
         String string1 = null;
         String string2 = null;
         String string3 = null;
+//        String string4 = null;
+
         while(iter.hasNext()) {
             string1 = iter.next().text();
             string2 = iter.next().text();
             string3 = iter.next().text();
+//            string4 = iter.next().text();
 
-            System.out.println(string1);
-            System.out.println(string2);
-            System.out.println(string3);
+            System.out.println(count + " string1 = " + string1);
+            System.out.println(count + " string2 = " + string2);
+            System.out.println(count + " string3 = " + string3);
+//            System.out.println(count + " string4 = " + string4);
+            System.out.println();
 
             //System.out.println(count + " text : " + iter.next().text());
             //System.out.println(count + " text : " + iter.next().text());
@@ -197,15 +265,15 @@ public class Main {
             count++;
         }
 
-        System.out.println("string2 as array = " );
-        System.out.println("length = " + string2.length());
-        // String string2a = string2.split(". ");
-        System.out.println(string2.getClass().getName());
+//        System.out.println("string2 as array = " );
+//        System.out.println("length = " + string2.length());
+//        // String string2a = string2.split(". ");
+//        System.out.println(string2.getClass().getName());
 
-        System.out.println("iter length = " + iter);
+//        System.out.println("iter length = " + iter);
 
 //*******************  keeper - gets details from class type file ****************************
-*/
+
 
 
 
@@ -226,6 +294,7 @@ public class Main {
 */
 
 
+/*
 //*************** keeper - gets the modifier and type and method name ***********************
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
@@ -272,13 +341,7 @@ public class Main {
             count++;
         }
         */
-
-
-
-
 //*************** keeper - gets the modifier and type and method name ***********************
-
-
 
         /*
         // ************  KEEPER **************
@@ -354,6 +417,6 @@ public class Main {
         */
 
     }
-}
 
+}
 
