@@ -233,9 +233,21 @@ public class Main {
  //       Elements details = doc.select("div.details").select("pre");
  //       Elements details = doc.select("div.details");
 
-              // <a name="method.detail">
-
-        Elements details = doc.select("ul.blocklist").select("li.blocklist").select("h3:containsOwn(Method Detail)");
+              // <a name="method.detail">          div[class=block]
+            // getElementById(String id)
+/*
+        Elements links = doc.getElementsByAttribute("method.detail");
+        //Elements links = content.getElementsByTag("a");
+        for (Element link : links) {
+            String linkHref = link.attr("href");
+            String linkText = link.text();
+            System.out.println("linkHref = " + linkHref);
+            System.out.println("linkText = " + linkText);
+        }
+*/
+        Elements details = doc.select("div.details").select("pre");
+//        Elements links = doc.getElementsByAttribute("method detail");
+//        Elements details = doc.getElementsByTag("a");
         //Iterator<Element> iterator = table.select("td[class=colLast]").iterator();
         Iterator<Element> iter = details.select("pre, div, dl").iterator();
         //Iterator<Element> iter = details.select("pre:contains(public), div, dl").iterator();
@@ -298,13 +310,20 @@ public class Main {
 //*************** keeper - gets the modifier and type and method name ***********************
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collections.html");
         //    File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Collection.html");
-        //    File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
+          File input = new File("/C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/package-summary.html");
 //        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arrays.html");
-        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arraylist.html");
+        //File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/util/Arraylist.html");
+//        File input = new File("C:/Users/myrlin/Desktop/Java/JavaDocs/docs/api/java/time/zone/ZoneRules.html");
         Document doc = Jsoup.parse(input, "UTF-8");
 
 
-        Element table = doc.select("table[summary=Method Summary table, listing methods, and an explanation]").first();
+
+
+
+        Element table = doc.select("table[summary=Error Summary table, listing errors, and an explanation").first();
+//        Element table = doc.select("table[summary=Exception Summary table, listing exceptions, and an explanation").first();
+//        Element table = doc.select("table[summary=Enum Summary table, listing enums, and an explanation").first();
+//        Element table = doc.select("table[summary=Method Summary table, listing methods, and an explanation]").first();
 //        Iterator<Element> iterator = table.select("code, div[class=block]").iterator(); //, div[class=block]
 //        Iterator<Element> iterator = table.select("td[class=colFirst], td[class=colLast], div[class=block]").iterator(); //, div[class=block]
         Iterator<Element> iterator = table.select("td[class=colFirst], td[class=colLast]").iterator(); //, div[class=block]
@@ -313,13 +332,17 @@ public class Main {
         String trimmed = null;
         while (iterator.hasNext()) {
             System.out.println(count + " text : " + iterator.next().text());
-            if (iterator.hasNext()) {
-                name = iterator.next().text();
-                trimmed = name.split("\\)", 2)[0];   // concept from:http://stackoverflow.com/questions/18220022/how-to-trim-a-string-after-a-specific-character-in-java
-                trimmed = trimmed + ")";
-                System.out.println(count + " text : " + trimmed);
-                System.out.println(count + " text : " + name);
-            }
+            System.out.println(count + " text : " + iterator.next().text());
+
+
+//            if (iterator.hasNext()) {
+//                name = iterator.next().text();
+//                trimmed = name.split("\\)", 2)[0];   // concept from:http://stackoverflow.com/questions/18220022/how-to-trim-a-string-after-a-specific-character-in-java
+//                trimmed = trimmed + ")";
+//                System.out.println(count + " text : " + trimmed);
+//                System.out.println(count + " text : " + name);
+//            }
+
 //            if (iterator.hasNext()) {
 //                System.out.println(count + " text : " + iterator.next().text());
 //            }
